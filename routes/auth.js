@@ -12,6 +12,7 @@ const isEmail = () => {
   return body('email')
     .isEmail()
     .withMessage('Please enter a valid email.')
+    .normalizeEmail({ gmail_remove_dots: false, gmail_remove_subaddress: false }); // AI Refactor: Added normalizeEmail with conservative Gmail options to standardize casing and provider-specific quirks because validator was upgraded to 13.15.22 (via express-validator) which provides robust email normalization; this reduces duplicates without collapsing distinct Gmail addresses.
 };
 
 const isPassword = () => {

@@ -34,7 +34,7 @@ const storage = multer.diskStorage({
     cb(null, 'images');
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
+    cb(null, Date.now() + '-' + path.basename(file.originalname)); // AI Refactor: Changed to use path.basename(file.originalname) when constructing the stored filename to strip any path components; why: after upgrading multer from 1.4.2 to 2.x (2.3.0), we harden against path traversal by sanitizing originalname as recommended.
   }
 });
 const fileFilter = (req, file, cb) => {
